@@ -58,7 +58,7 @@ if __name__ == '__main__':
 
         else:
             obj = IPWhois(address.strip())
-            lookup = obj.lookup_rdap(inc_nir=False,retry_count=12,depth=1,get_asn_description=True,excluded_entities='network')
+            lookup = obj.lookup_rdap(asn_methods=['dns', 'whois', 'http'])
             reversedns = get_dns(address.strip())
             result = [lookup['query'], lookup['asn_cidr'], lookup['asn_description'], reversedns]
 
@@ -67,13 +67,11 @@ if __name__ == '__main__':
     elif filename:
 
         filehandle = open(filename, 'r')
+        filelength = file_len(filename)
 
         if tsvoutfile:
+            print ("Writing output to " + tsvoutfile + ".")
             outfilehandle = open(tsvoutfile, 'a')
-
-        else:
-            filelength = file_len(filename)
-            print("Input file contains %s entries." % filelength)
 
         output = []
         result = []
@@ -84,14 +82,15 @@ if __name__ == '__main__':
                 result = [address, rfc1918[2], rfc1918[1], 'N/A']
             else:
                 obj = IPWhois(address.strip())
-                lookup = obj.lookup_rdap(depth=1, rate_limit_timeout=600)
+                lookup = obj.lookup_rdap(asn_methods=['dns', 'whois', 'http'])
                 reversedns = get_dns(address.strip())
                 result = [lookup['query'], lookup['asn_cidr'], lookup['asn_description'], reversedns]
 
+            output = "%s\t%s\t%s\t%s\n" % (result[0], result[1], result[2], result[3])
             if tsvoutfile:
-                output = "%s\t%s\t%s\t%s\n" % (result[0], result[1], result[2], result[3])
-                print(output.strip())
                 outfilehandle.write(output)
+            else:
+                print(output.strip())
 
 
     else:
