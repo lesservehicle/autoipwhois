@@ -22,6 +22,7 @@ git clone https://github.com/lesservehicle/autoipwhois.git
 
 Install the requirements for the script.
 ```
+cd ~/repos/autoipwhois
 pip install -r requirements.txt
 ```
 
@@ -46,17 +47,17 @@ optional arguments:
 
 Return a result for a single IP address and output to STDOUT:
 ```
-python3 autoipwhois -a 8.8.8.8
+python autoipwhois -a 8.8.8.8
 ```
 
 Return results for a list of IP addresses and output to STDOUT:
 ```
-python3 autoipwhois -l list.txt
+python autoipwhois -l list.txt
 ```
 
 Return results for a list of IPv4 addresses and output to a TSV file:
 ```
-$ python3 autoipwhois.py -f list.txt -t output.tsv
+$ python autoipwhois.py -f list.txt -t output.tsv
 ```
 
 ## Full Example With Installation and Usage
@@ -94,18 +95,18 @@ Collecting tqdm
 Installing collected packages: dnspython, ipwhois, tqdm
 Successfully installed dnspython-1.16.0 ipwhois-1.1.0 tqdm-4.42.0
 
-(autoipwhois) adam@ubuntu:~/repos/autoipwhois$ python3 autoipwhois -a 8.8.8.8
+(autoipwhois) adam@ubuntu:~/repos/autoipwhois$ python autoipwhois -a 8.8.8.8
 8.8.8.8	8.8.8.0/24	GOOGLE, US	dns.google.
 
 (autoipwhois) adam@ubuntu:~/repos/autoipwhois$ echo "8.8.8.8" >> list.txt
 
 (autoipwhois) adam@ubuntu:~/repos/autoipwhois$ echo "1.2.3.4" >> list.txt
 
-(autoipwhois) adam@ubuntu:~/repos/autoipwhois$ python3 autoipwhois -l list.txt
+(autoipwhois) adam@ubuntu:~/repos/autoipwhois$ python autoipwhois -l list.txt
 8.8.8.8	8.8.8.0/24	GOOGLE, US	dns.google.
 1.2.3.4	NA	NA	4.3.2.1.in-addr.arpa
 
-(autoipwhois) adam@ubuntu:~/repos/autoipwhois$ python3 autoipwhois.py -f list.txt -t output.tsv
+(autoipwhois) adam@ubuntu:~/repos/autoipwhois$ python autoipwhois.py -f list.txt -t output.tsv
 Writing output to output.tsv.
 
 (autoipwhois) adam@ubuntu:~/repos/autoipwhois$ cat output.tsv 
